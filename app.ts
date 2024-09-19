@@ -152,6 +152,7 @@ const createRow = (player: Player): HTMLElement => {
     return row
 }
 
+// show the num of the range input 
 const rangeDisply = (): void => {
     for (let i:number = 0; i < rangeDispInp.length; i++) {
         const inp = rangeDispInp[i + 1];
@@ -164,14 +165,13 @@ const rangeDisply = (): void => {
     }
 }
 
+// insert tp the table the players
 const populatePlayers = async (): Promise<void> => {
     const players: Player[] | undefined = await getPlayers()
     if(players?.length == 0){
         alert("There is no players with thees expectation")
         console.log(table);
-
     }
-    
     table.innerHTML = ""
     for (const player of (players as Player[])) {
         table.appendChild(createRow(player))
@@ -180,7 +180,7 @@ const populatePlayers = async (): Promise<void> => {
 
 }
 
-
+// search button
 searchBtn.addEventListener("click", populatePlayers)
 
 rangeDisply()
@@ -204,6 +204,7 @@ interface PlayerReq {
     points: number,
 }
 
+// part of fiuther plans
 type positions = "PG"|"SG"|"SF"|"PF"|"C"
 
 type Team =  {

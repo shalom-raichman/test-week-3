@@ -151,6 +151,7 @@ const createRow = (player) => {
     row.appendChild(addPlayer);
     return row;
 };
+// show the num of the range input 
 const rangeDisply = () => {
     for (let i = 0; i < rangeDispInp.length; i++) {
         const inp = rangeDispInp[i + 1];
@@ -163,6 +164,7 @@ const rangeDisply = () => {
         }
     }
 };
+// insert tp the table the players
 const populatePlayers = () => __awaiter(void 0, void 0, void 0, function* () {
     const players = yield getPlayers();
     if ((players === null || players === void 0 ? void 0 : players.length) == 0) {
@@ -175,5 +177,6 @@ const populatePlayers = () => __awaiter(void 0, void 0, void 0, function* () {
     }
     console.log(table);
 });
+// search button
 searchBtn.addEventListener("click", populatePlayers);
 rangeDisply();
