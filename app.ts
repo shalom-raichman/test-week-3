@@ -2,19 +2,20 @@ const BASE_URL: string = "https://nbaserver-q21u.onrender.com/"
 const searchBtn: HTMLDivElement = document.querySelector(".subm")!
 const table: HTMLElement = document.querySelector(".tbody")!
 const playrsRows: HTMLElement = document.querySelector(".data")!
-
-
 const rangeDispInp: NodeListOf<HTMLLabelElement> = document.querySelectorAll(".range-inp")
 const rangeDispLbl: NodeListOf<HTMLInputElement> = document.querySelectorAll(".range-lbl")
 
+// get the divs of the groop
 const PG: HTMLDivElement = document.querySelector(".PG")! 
 const SG: HTMLDivElement = document.querySelector(".SG")! 
 const SF: HTMLDivElement = document.querySelector(".SF")! 
 const PF: HTMLDivElement = document.querySelector(".PF")! 
 const C: HTMLDivElement = document.querySelector(".C")! 
 
+// the fantasy teem arry
 let fantasyTesm: Player[] = []
 
+// create reqeuest for the fetch request
 const playersReq = (): PlayerReq => {
     const playerReq: PlayerReq = {
         position: (rangeDispInp[0] as unknown as HTMLInputElement).value,
@@ -25,6 +26,7 @@ const playersReq = (): PlayerReq => {
     return playerReq
 }
 
+// return the players from the api server
 const getPlayers = async (): Promise<Player[] | undefined> => {    
     try {
         const res = await fetch(`${BASE_URL}api/filter`,{
@@ -44,6 +46,7 @@ const getPlayers = async (): Promise<Player[] | undefined> => {
     }
 }
 
+// displya player details in the right div (by position)
 const populateTeam = (player: Player): void => {
     const playerName: HTMLParagraphElement = document.createElement("p")
     playerName.textContent = player.playerName
@@ -92,9 +95,9 @@ const populateTeam = (player: Player): void => {
 
 }
 
-
+// calls the populateTeam func to 
 const addPlayer = (player: Player) => {
-    const toAdd = fantasyTesm.find(p => p.position == player.position)
+    const toAdd = fantasyTesm.find(p => p.position == player.position || p.playerName == player.playerName)
     if(toAdd) return
     fantasyTesm.push(player)
     for (const player of fantasyTesm) {
@@ -201,8 +204,8 @@ interface PlayerReq {
     points: number,
 }
 
-// type positions = "PG"|"SG"|"SF"|"PF"|"C"
+type positions = "PG"|"SG"|"SF"|"PF"|"C"
 
-// type Team =  {
-//     [key in positions]: Player;
-// }
+type Team =  {
+    [key in positions]: Player;
+}

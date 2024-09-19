@@ -14,12 +14,15 @@ const table = document.querySelector(".tbody");
 const playrsRows = document.querySelector(".data");
 const rangeDispInp = document.querySelectorAll(".range-inp");
 const rangeDispLbl = document.querySelectorAll(".range-lbl");
+// get the divs of the groop
 const PG = document.querySelector(".PG");
 const SG = document.querySelector(".SG");
 const SF = document.querySelector(".SF");
 const PF = document.querySelector(".PF");
 const C = document.querySelector(".C");
+// the fantasy teem arry
 let fantasyTesm = [];
+// create reqeuest for the fetch request
 const playersReq = () => {
     const playerReq = {
         position: rangeDispInp[0].value,
@@ -29,6 +32,7 @@ const playersReq = () => {
     };
     return playerReq;
 };
+// return the players from the api server
 const getPlayers = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const res = yield fetch(`${BASE_URL}api/filter`, {
@@ -48,6 +52,7 @@ const getPlayers = () => __awaiter(void 0, void 0, void 0, function* () {
         console.log(error);
     }
 });
+// displya player details in the right div (by position)
 const populateTeam = (player) => {
     const playerName = document.createElement("p");
     playerName.textContent = player.playerName;
@@ -92,8 +97,9 @@ const populateTeam = (player) => {
             break;
     }
 };
+// calls the populateTeam func to 
 const addPlayer = (player) => {
-    const toAdd = fantasyTesm.find(p => p.position == player.position);
+    const toAdd = fantasyTesm.find(p => p.position == player.position || p.playerName == player.playerName);
     if (toAdd)
         return;
     fantasyTesm.push(player);
@@ -171,7 +177,3 @@ const populatePlayers = () => __awaiter(void 0, void 0, void 0, function* () {
 });
 searchBtn.addEventListener("click", populatePlayers);
 rangeDisply();
-// type positions = "PG"|"SG"|"SF"|"PF"|"C"
-// type Team =  {
-//     [key in positions]: Player;
-// }
